@@ -1,0 +1,28 @@
+//CommonLocales
+	Yes=Yes
+	No=No
+	Version=Version
+//Menu/Common
+	Apply=Apply
+	Back=Back
+	Paused=Paused
+	Resume=Resume
+//Menu/Main
+	Play=Play
+	Options=Options
+	Credits=Credits
+	Quit=Quit
+	Blog=MBWstudio
+	Repo=[PROJECT NAME] is an open-source project. You can watch its code or changes in its Github repository.
+//Menu/Options/Main
+	Language=Language
+	Video=Video
+	Sound=Sound
+//Menu/Options/Video
+	Resolution=Resolution
+	ScreenMode=Screen mode
+	VSync=VSync
+	Subtitles=Subtitles
+//Menu/Options/Sound
+	Music=Music
+	SFX=SFX
