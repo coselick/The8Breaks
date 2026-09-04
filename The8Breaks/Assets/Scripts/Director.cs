@@ -1,3 +1,4 @@
+using MBW.The8Breaks.Anomalies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace MBW.The8Breaks
         [Range(0f, 1f)][SerializeField] private float _initAnomalyChance;
         [Range(1, 16)][SerializeField] private int _anomaliesPerBreak;
         [SerializeField] private List<AnomalyList> _anomalies;
+        [SerializeField] private GameObject _inGameAnomaliesParent;
         private List<Anomaly> _usedAnomalies;
         private float _anomalyChance;
 
@@ -25,6 +27,7 @@ namespace MBW.The8Breaks
         {
             _anomalyChance = _initAnomalyChance;
             _usedAnomalies = new List<Anomaly>();
+            StartBreak();
         }
         public void StartBreak()
         {
@@ -39,6 +42,7 @@ namespace MBW.The8Breaks
                 {
                     AnomalyList list = _anomalies.Find(x=>x._List.Contains(anomaly));
                     if (list != null && usedTypes.Add(list.Type)) _anomalyChance *= (1f - list.IsNextBreakIsAnomalyChanceDegrade);
+                    _inGameAnomaliesParent.GetComponentsInChildren<InGameAnomaly>().FirstOrDefault(x => x.name == anomaly.NameKey).ActivateAnomaly();
                 }
                 _usedAnomalies.AddRange(selected);
             }

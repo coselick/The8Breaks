@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MBW.The8Breaks
+namespace MBW.The8Breaks.Triggers
 {
     public class StartBreakTrigger : MonoBehaviour
     {
