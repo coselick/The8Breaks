@@ -16,11 +16,11 @@ namespace MBW.The8Breaks.Anomalies
             _initRotation = transform.rotation;
             DeactivateAnomaly();
         }
-        public virtual void ActivateAnomaly() { ResetTransforms(); SetActiveState(true); }
+        public virtual void ActivateAnomaly() { SetActiveState(true); }
 
-        public virtual void DeactivateAnomaly() { ResetTransforms(); SetActiveState(false); }
+        public virtual void DeactivateAnomaly() { SetActiveState(false); }
 
-        private void SetActiveState(bool isAnomaly) { _normalVersion.SetActive(!isAnomaly); _anomalyVersion.SetActive(isAnomaly); }
+        protected virtual void SetActiveState(bool isAnomaly) { _normalVersion.SetActive(!isAnomaly); _anomalyVersion.SetActive(isAnomaly); }
 
         private void ResetTransforms()
         {
