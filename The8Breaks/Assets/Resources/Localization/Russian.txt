@@ -1,28 +1,61 @@
 //CommonLocales
-	Yes=Yes
-	No=No
-	Version=Version
+	Yes=Да
+	No=Нет
+	Version=Версия
 //Menu/Common
-	Apply=Apply
-	Back=Back
-	Paused=Paused
-	Resume=Resume
+	Apply=Применить
+	Back=Назад
+	Paused=Пауза
+	Resume=Продолжить
 //Menu/Main
-	Play=Play
-	Options=Options
-	Credits=Credits
-	Quit=Quit
+	Play=Играть
+	Options=Настройки
+	Credits=Титры
+	Quit=Выход
 	Blog=MBWstudio
 	Repo=[PROJECT NAME] is an open-source project. You can watch its code or changes in its Github repository.
 //Menu/Options/Main
-	Language=Language
-	Video=Video
-	Sound=Sound
+	Language=Язык
+	Video=Видео
+	Sound=Звук
 //Menu/Options/Video
-	Resolution=Resolution
-	ScreenMode=Screen mode
+	Resolution=Разрешение
+	ScreenMode=Режим экрана
 	VSync=VSync
-	Subtitles=Subtitles
+	Subtitles=Субтитры
 //Menu/Options/Sound
-	Music=Music
+	Music=Музыка
 	SFX=SFX
+//Game/Main
+//Game/Anomalies
+	Harchev=Харчев
+	HarchevDesc=Этот усатый морж - неудачный эксперимент Гладковой по превращению учителя информатики в высший разум без морали,\nа по итогу получился какой-то кусок сала. Появляется посреди коридора и издает хлюпающие звуки. Крайне безопасен.
+//Game//Dialogues
+	Cherkashevich_Prologue_1=Эй, просыпайся, соня!
+	Cherkashevich_Prologue_2_1=Я понимаю, что мой предмет настолько скучный, но
+	Cherkashevich_Prologue_2_2=урок уже давно закончился!
+	Cherkashevich_Prologue_3=Ой-ей, Кажись, перемена тоже скоро закончится...
+	Cherkashevich_Prologue_4=Быстрее, тебе нужно добраться до кабинета биологии на другом конце коридора.
+	Cherkashevich_Prologue_5=Поспеши!
+	Cherkashevich_Prologue_Interact_1=Давай, иди!
+	Cherkashevich_Prologue_Interact_2=Ну же! Иначе опоздаешь!
+	Cherkashevich_Prologue_Vault=Э! ты куда свои ручки потянул?! А ну отошел оттуда!
+	Cherkashevich_Tutorial_1=Э...Что?
+	Cherkashevich_Tutorial_2=Как... Как ты это сделал?! Ты же только что зашел в кабинет биологии!
+	Cherkashevich_Tutorial_3=Хмм...
+	Cherkashevich_Tutorial_4=А знаешь, кажется, я уже это где-то видел.
+	Cherkashevich_Tutorial_5=Наверное ты попал в некую петлю аномалий.
+	Cherkashevich_Tutorial_6=У меня была презентация на эту тему... Не спрашивай!
+	Cherkashevich_Tutorial_7=Вот, посмотри на доску:
+	Cherkashevich_Tutorial_End=Удачи!
+	Cherkashevich_Tutorial_Interrupt=А! Ну и пошел ты! Сам справляйся!
+	Cherkashevich_Interact_1=Иногда я ем кабачки.
+	Cherkashevich_Interact_2=...А еще я педофил. Или там такого не было?
+	Cherkashevich_Interact_3=Когда рут на Кохаку?
+	Cherkashevich_Interact_4=А у тебя есть волосики в твоем особом месте?
+	Cherkashevich_Interact_5=Ты в Бобруйске был? Был, суко?
+	Cherkashevich_Interact_6=Я эксперементировал с хлебом.
+	Cherkashevich_Interact_7=Когда Slendyroma 1.7?
+	Cherkashevich_Interact_8=Эм...
+	Cherkashevich_Interact_9=А я рассказывал, как мой приятель Кит однажды зиганул ну уроке русского?
+	
