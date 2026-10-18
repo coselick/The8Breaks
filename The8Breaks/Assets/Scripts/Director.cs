@@ -20,6 +20,7 @@ namespace MBW.The8Breaks
         [Range(1, 16)][SerializeField] private int _anomaliesPerBreak;
         [SerializeField] private List<AnomalyList> _anomalies;
         [SerializeField] private GameObject _inGameAnomaliesParent;
+        [SerializeField] private CherkashevichMonitor _cherkashevichMonitor;
         private List<Anomaly> _preparedAnomalies, _usedAnomalies;
         private float _anomalyChance;
 
@@ -65,10 +66,10 @@ namespace MBW.The8Breaks
             {
                 foreach (var anomaly in _preparedAnomalies) _inGameAnomaliesParent.GetComponentsInChildren<InGameAnomaly>().FirstOrDefault(x => x.name == anomaly.NameKey).DeactivateAnomaly();
                 _preparedAnomalies.Clear();
-                if (backrooms) _currentBreak++;
+                if (backrooms) { _currentBreak++; _cherkashevichMonitor.ChangeMaterial(_currentBreak); }
             }
-            else if (!backrooms) _currentBreak++;
-        }
+            else if (!backrooms) { _currentBreak++; _cherkashevichMonitor.ChangeMaterial(_currentBreak); }
+            }
         private List<Anomaly> SelectAnomalies()
         {
             var selected = new List<Anomaly>();
