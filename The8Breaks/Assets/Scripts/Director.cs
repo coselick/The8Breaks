@@ -14,36 +14,36 @@ namespace MBW.The8Breaks
     }
     public class Director : MonoBehaviour
     {
-        [HideInInspector] public int _currentBreak;
-        [HideInInspector] public bool _isItAnomaly;
+        [HideInInspector] public int _currentBreak = 1;
+        [HideInInspector] public bool IsItAnomaly;
         [Range(0f, 1f)][SerializeField] private float _initAnomalyChance;
         [Range(1, 16)][SerializeField] private int _anomaliesPerBreak;
         [SerializeField] private List<AnomalyList> _anomalies;
         [SerializeField] private GameObject _inGameAnomaliesParent;
-        private List<Anomaly> _usedAnomalies;
+        private List<Anomaly> _preparedAnomalies, _usedAnomalies;
         private float _anomalyChance;
 
         private void Start()
         {
             _anomalyChance = _initAnomalyChance;
+            _preparedAnomalies = new List<Anomaly>();
             _usedAnomalies = new List<Anomaly>();
-            StartBreak();
         }
-        public void StartBreak()
+        public void PrepareBreak()
         {
             if (_currentBreak == 8) { Debug.Log("game won"); return; }
-            _isItAnomaly = UnityEngine.Random.Range(0f, 1f) < _anomalyChance;
-            if (_isItAnomaly)
+            IsItAnomaly = UnityEngine.Random.Range(0f, 1f) < _anomalyChance;
+            if (IsItAnomaly)
             {
                 _anomalyChance *= 0.75f;
                 List<Anomaly> selected = SelectAnomalies();
                 var usedTypes = new HashSet<AnomalyType>();
                 foreach (var anomaly in selected)
                 {
-                    AnomalyList list = _anomalies.Find(x=>x._List.Contains(anomaly));
+                    AnomalyList list = _anomalies.Find(x => x._List.Contains(anomaly));
                     if (list != null && usedTypes.Add(list.Type)) _anomalyChance *= (1f - list.IsNextBreakIsAnomalyChanceDegrade);
-                    _inGameAnomaliesParent.GetComponentsInChildren<InGameAnomaly>().FirstOrDefault(x => x.name == anomaly.NameKey).ActivateAnomaly();
                 }
+                _preparedAnomalies.AddRange(selected);
                 _usedAnomalies.AddRange(selected);
             }
             else
@@ -52,9 +52,23 @@ namespace MBW.The8Breaks
                 if (_anomalyChance > 1f) _anomalyChance = 1f;
             }
             if (_anomalyChance < 0f) _anomalyChance = 0f;
-            _currentBreak++;
+            Debug.Log("_currentBreak = " + _currentBreak);
+            if (IsItAnomaly) Debug.Log("_preparedAnomalies = " + string.Join(", ", _preparedAnomalies));
         }
-
+        public void StartBreak()
+        {
+            foreach (var anomaly in _preparedAnomalies) _inGameAnomaliesParent.GetComponentsInChildren<InGameAnomaly>().FirstOrDefault(x => x.name == anomaly.NameKey).ActivateAnomaly();
+        }
+        public void EndBreak(bool backrooms)
+        {
+            if (IsItAnomaly)
+            {
+                foreach (var anomaly in _preparedAnomalies) _inGameAnomaliesParent.GetComponentsInChildren<InGameAnomaly>().FirstOrDefault(x => x.name == anomaly.NameKey).DeactivateAnomaly();
+                _preparedAnomalies.Clear();
+                if (backrooms) _currentBreak++;
+            }
+            else if (!backrooms) _currentBreak++;
+        }
         private List<Anomaly> SelectAnomalies()
         {
             var selected = new List<Anomaly>();

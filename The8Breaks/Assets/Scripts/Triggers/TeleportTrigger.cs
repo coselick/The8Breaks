@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MBW.The8Breaks.Triggers
@@ -5,7 +6,7 @@ namespace MBW.The8Breaks.Triggers
     public class TeleportTrigger : MonoBehaviour
     {
         [SerializeField] private Transform _point;
-        [SerializeField] private GameObject _startTrigger, _liftTrigger;
+        [SerializeField] private List<GameObject> _triggers2Activate, _triggers2Deactivate;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -21,8 +22,8 @@ namespace MBW.The8Breaks.Triggers
             rb.velocity = deltaRot * rb.velocity;
             rb.angularVelocity = deltaRot * rb.angularVelocity;
             rb.position = newPosition; rb.rotation = newRotation;
-            _startTrigger.gameObject.SetActive(true);
-            _liftTrigger.gameObject.SetActive(false);
+            foreach (GameObject trigger in _triggers2Activate) trigger.SetActive(true);
+            foreach (GameObject trigger in _triggers2Deactivate) trigger.SetActive(false);
         }
     }
 }
