@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Hertzole.GoldPlayer;
 
 namespace MBW.The8Breaks.Triggers
 {
@@ -11,17 +12,14 @@ namespace MBW.The8Breaks.Triggers
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag != "Player") return;
-            Vector3 localOffset = transform.InverseTransformPoint(other.transform.position);
-            localOffset.z = 0f;
+            GoldPlayerController player = other.GetComponent<GoldPlayerController>();
+            Vector3 localOffset = transform.InverseTransformPoint(other.transform.position); localOffset.z = 0f;
             Vector3 newPosition = _point.TransformPoint(localOffset);
             Quaternion relativeRotation = Quaternion.Inverse(transform.rotation) * other.transform.rotation;
             Quaternion newRotation = _point.rotation * relativeRotation;
-            other.transform.SetPositionAndRotation(newPosition, newRotation);
-            Rigidbody rb = other.attachedRigidbody;
-            Quaternion deltaRot = _point.rotation * Quaternion.Inverse(transform.rotation);
-            rb.velocity = deltaRot * rb.velocity;
-            rb.angularVelocity = deltaRot * rb.angularVelocity;
-            rb.position = newPosition; rb.rotation = newRotation;
+            float newYRotation = newRotation.eulerAngles.y;
+            player.SetPositionAndRotation(newPosition, newYRotation);
+            player.HeadBob.ResetBob();
             foreach (GameObject trigger in _triggers2Activate) trigger.SetActive(true);
             foreach (GameObject trigger in _triggers2Deactivate) trigger.SetActive(false);
         }
