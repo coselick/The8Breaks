@@ -173,21 +173,13 @@ namespace Hertzole.GoldPlayer
                 return;
 
             AudioClip[] clips;
+            float volume = 1f;
 
-            if (PlayerController.Movement.IsRunning)
-            {
-                clips = runFootsteps;
-            }
-            else if (PlayerController.Movement.IsCrouching)
-            {
-                clips = crouchFootsteps;
-            }
-            else
-            {
-                clips = walkFootsteps;
-            }
+            if (PlayerController.Movement.IsRunning) { clips = runFootsteps; volume = 0.5f; }
+            else if (PlayerController.Movement.IsCrouching) { clips = crouchFootsteps; volume = 0.15f; }
+            else { clips = walkFootsteps; volume = 0.5f; }
 
-            currentFootstepSource = PlayRandomSound(clips);
+            currentFootstepSource = PlayRandomSound(clips, volume);
         }
 
         public void PlayJumpSound()
@@ -208,25 +200,12 @@ namespace Hertzole.GoldPlayer
                 PlayRandomSound(landingSounds);
         }
 
-        private AudioSource PlayRandomSound(AudioClip[] clips)
+        private AudioSource PlayRandomSound(AudioClip[] clips, float volume = 1f)
         {
-            if (_audioHandler == null ||
-                clips == null ||
-                clips.Length == 0)
-            {
-                return null;
-            }
-
-            AudioClip clip =
-                clips[Random.Range(0, clips.Length)];
-
-            if (clip == null)
-                return null;
-
-            return _audioHandler.PlaySound(
-                SoundType.SFX,
-                clip
-            );
+            if (_audioHandler == null || clips == null || clips.Length == 0) return null;
+            AudioClip clip = clips[Random.Range(0, clips.Length)];
+            if (clip == null) return null;
+            return _audioHandler.PlaySound(SoundType.SFX, clip, volume);
         }
 
         public void StopFootstepSound()
