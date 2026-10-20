@@ -8,26 +8,25 @@ namespace Q17pD
     public class AudioHandler : MonoBehaviour
     {
         [SerializeField] private AudioMixerGroup _audioMixerGroup;
-        [SerializeField] private AudioSource _audioSourcePrefab;
-        private List<AudioSource> _activeAudioSources = new List<AudioSource>();
-        private List<AudioSource> _availableAudioSources = new List<AudioSource>();
+        private AudioSource _audioSourcePrefab;
+        private List<AudioSource> _activeAudioSources = new List<AudioSource>(), _availableAudioSources = new List<AudioSource>();
         private float _tempMusicDB, _tempSFXDB;
 
-        private void Start() => Revert();
+        private void Start() { _audioSourcePrefab = Resources.Load<AudioSource>("SFXAudioSource"); Revert(); }
         private void Update() { for (int i = _activeAudioSources.Count - 1; i >= 0; i--) if (!_activeAudioSources[i].isPlaying) ReturnSourceToPool(_activeAudioSources[i]); }
-        public AudioSource PlaySound(SoundType soundType, AudioClip clip, bool loop = false, bool fade = false, float fadeTime = 5)
+        public AudioSource PlaySound(SoundType soundType, AudioClip clip, float volume = 1f, bool loop = false, bool fade = false, float fadeTime = 5)
         {
             AudioSource source = GetAvailableAudioSource();
-            source.clip = clip; source.loop = loop;
+            source.clip = clip; source.loop = loop; source.volume = volume;
             if (soundType == SoundType.Music) source.outputAudioMixerGroup = _audioMixerGroup.audioMixer.FindMatchingGroups("Music")[0];
             else source.outputAudioMixerGroup = _audioMixerGroup.audioMixer.FindMatchingGroups("SFX")[0];
             _activeAudioSources.Add(source);
             source.Play();
-            if(fade) { source.DOKill(); source.volume = 0; source.DOFade(1, fadeTime); }
+            if (fade) { source.DOKill(); source.volume = 0; source.DOFade(volume, fadeTime); }
             return source;
-            
+
         }
-        public void StopSound(AudioSource source, bool fade = false, float fadeTime = 5) 
+        public void StopSound(AudioSource source, bool fade = false, float fadeTime = 5)
         {
             if (fade) { source.DOKill(); source.DOFade(0, fadeTime).OnComplete(() => { source.Stop(); ReturnSourceToPool(source); }); }
             else { source.Stop(); ReturnSourceToPool(source); }

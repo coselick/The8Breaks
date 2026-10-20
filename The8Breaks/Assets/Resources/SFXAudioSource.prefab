@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8420424281378954493}
   - component: {fileID: 5425343644224028620}
   m_Layer: 0
-  m_Name: Audio Source by AudioHandler
+  m_Name: SFXAudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
