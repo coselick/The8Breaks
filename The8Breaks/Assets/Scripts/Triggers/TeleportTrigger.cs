@@ -20,6 +20,7 @@ namespace MBW.The8Breaks.Triggers
             float newYRotation = newRotation.eulerAngles.y;
             player.SetPositionAndRotation(newPosition, newYRotation);
             player.HeadBob.ResetBob();
+            player.Audio.ResetAudio();
             foreach (GameObject trigger in _triggers2Activate) trigger.SetActive(true);
             foreach (GameObject trigger in _triggers2Deactivate) trigger.SetActive(false);
         }
