@@ -7,7 +7,7 @@ namespace MBW.The8Breaks.Triggers
     public class TeleportTrigger : MonoBehaviour
     {
         [SerializeField] private Transform _point;
-        [SerializeField] private List<GameObject> _triggers2Activate, _triggers2Deactivate;
+        [SerializeField] private List<GameObject> _objs2Activate, _objs2Deactivate;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -21,8 +21,8 @@ namespace MBW.The8Breaks.Triggers
             player.SetPositionAndRotation(newPosition, newYRotation);
             player.HeadBob.ResetBob();
             player.Audio.ResetAudio();
-            foreach (GameObject trigger in _triggers2Activate) trigger.SetActive(true);
-            foreach (GameObject trigger in _triggers2Deactivate) trigger.SetActive(false);
+            foreach (GameObject trigger in _objs2Activate) trigger.SetActive(true);
+            foreach (GameObject trigger in _objs2Deactivate) trigger.SetActive(false);
         }
     }
 }
